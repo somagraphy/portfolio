@@ -1,0 +1,481 @@
+/* --- Basic Setup & Variables --- */
+:root {
+    --primary-color: #6a0dad; /* A nice purple */
+    --secondary-color: #4169e1; /* A royal blue */
+    --gradient-bg: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    --text-color: #f4f4f4;
+    --dark-bg: #1a1a2e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+}
+
+/* --- Preloader Styles --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-bg); /* Uses your existing background color */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.75s ease, visibility 0.75s ease;
+}
+
+.preloader-logo span {
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--text-color);
+    opacity: 0;
+    animation: fadeInLetter 1s forwards;
+}
+
+/* Staggered animation delay for each letter */
+.preloader-logo span:nth-child(1) { animation-delay: 0.1s; }
+.preloader-logo span:nth-child(2) { animation-delay: 0.2s; }
+.preloader-logo span:nth-child(3) { animation-delay: 0.3s; }
+.preloader-logo span:nth-child(4) { animation-delay: 0.4s; }
+.preloader-logo span:nth-child(5) { animation-delay: 0.5s; }
+.preloader-logo span:nth-child(6) { animation-delay: 0.6s; }
+.preloader-logo span:nth-child(7) { animation-delay: 0.7s; }
+.preloader-logo span:nth-child(8) { animation-delay: 0.8s; }
+.preloader-logo span:nth-child(9) { animation-delay: 0.9s; }
+.preloader-logo span:nth-child(10) { animation-delay: 1.0s; }
+
+
+@keyframes fadeInLetter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Class to hide the preloader */
+.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+/* --- Header & Navigation --- */
+/* --- Header & Navigation (Updated for Responsiveness) --- */
+header {
+    background-color: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Designed Logo --- */
+nav .logo {
+    font-family: 'Poppins', sans-serif; /* Recommended Font */
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+    /* Gradient text effect */
+    background: var(--gradient-bg);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* --- Navigation Links --- */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* --- Hamburger Menu --- */
+.hamburger-menu {
+    display: none; /* Hidden on desktop */
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger-menu .line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Mobile & Tablet Styles (Media Query) --- */
+@media screen and (max-width: 768px) {
+    .hamburger-menu {
+        display: flex; /* Visible on mobile */
+        z-index: 1001; /* Ensure it's above the nav links */
+    }
+
+    nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off-screen */
+        width: 60%;
+        height: 100vh;
+        background-color: var(--dark-bg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: right 0.5s ease-in-out;
+    }
+
+    /* This class will be toggled by JavaScript */
+    .nav-active {
+        right: 0;
+    }
+
+    /* Animate hamburger to an 'X' */
+    .toggle .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line:nth-child(2) {
+        opacity: 0;
+    }
+    .toggle .line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}
+
+/* --- Home Page Hero Section --- */
+.home-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('../images/hero-background.jpg') no-repeat center center/cover;
+    position: relative;
+}
+
+/* Add an overlay for better text readability */
+.home-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 26, 46, 0.6);
+}
+
+.hero-text {
+    z-index: 10;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero-text h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* --- Shared Button Style --- */
+.btn {
+    padding: 0.8rem 2rem;
+    background: var(--gradient-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* --- Portfolio Gallery --- */
+.portfolio-page {
+    padding: 8rem 5% 2rem;
+    text-align: center;
+}
+
+.portfolio-page h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(106, 13, 173, 0.5);
+}
+
+/* --- Simple Fade-In Animation --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add animation to other pages too */
+.portfolio-page, .about-page, .contact-page {
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem 5%;
+    margin-top: 2rem;
+    background-color: #11111b;
+}
+
+/* --- Swiper Carousel Styles --- */
+.swiper {
+    width: 100%;
+    height: 100vh;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+}
+.swiper-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 26, 46, 0.6);
+}
+.swiper-button-next, .swiper-button-prev {
+    color: var(--primary-color) !important;
+}
+.swiper-pagination-bullet-active {
+    background: var(--primary-color) !important;
+}
+
+/* --- About Page Styles --- */
+.about-page {
+    padding: 8rem 5% 4rem; /* Add padding to avoid content hiding behind the header */
+    max-width: 1200px;
+    margin: 0 auto; /* Center the content on larger screens */
+    min-height: 80vh; /* Ensure it takes up a good amount of screen height */
+}
+
+.about-content {
+    display: flex; /* Arrange image and text side-by-side on desktop */
+    align-items: center; /* Vertically align items in the center */
+    gap: 3rem; /* Space between the image and the text */
+}
+
+.about-content img {
+    flex: 1; /* Assign a flexible size */
+    max-width: 400px; /* Prevent the image from becoming too large */
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.about-text {
+    flex: 1.5; /* Allow the text block to take up more space */
+}
+
+.about-text h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.7; /* Improve readability */
+    margin-bottom: 1rem;
+}
+
+/* --- Responsive Styles for Tablet & Mobile --- */
+@media screen and (max-width: 768px) {
+    .about-content {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center; /* Center the text for a better look */
+        gap: 2rem;
+    }
+
+    .about-content img {
+        max-width: 80%; /* Allow image to be wide but not full width */
+        margin-bottom: 1rem;
+    }
+
+    .about-text h2 {
+        font-size: 2.2rem; /* Slightly smaller title for mobile */
+    }
+}
+
+/* --- Contact Page Styles --- */
+.contact-page {
+    padding: 8rem 5% 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 80vh;
+}
+
+.contact-page h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+.contact-page p {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    color: #ccc;
+}
+
+/* --- Contact Info Links --- */
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.contact-info a {
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.contact-info a:hover {
+    background: var(--gradient-bg);
+    transform: translateY(-3px);
+}
+
+.contact-info a i {
+    margin-right: 0.5rem; /* Space between icon and text */
+    color: var(--primary-color);
+}
+
+.contact-info a:hover i {
+    color: var(--text-color);
+}
+
+/* --- Contact Form Styles --- */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #444;
+    background-color: #1a1a2e;
+    color: var(--text-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.contact-form button {
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+}
+
+/* --- Responsive Styles for Contact Page --- */
+@media screen and (max-width: 768px) {
+    .contact-page h2 {
+        font-size: 2.2rem;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
